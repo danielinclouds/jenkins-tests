@@ -18,7 +18,8 @@ podTemplate(
         stage ('List repo in another container') {
             container ('ubuntu') {
                 sh 'ls'
-                sh 'find / -name jenkins-tests'
+		sh 'pwd'
+		sh 'find / -name jenkins-tests'
             }
         }
     }
