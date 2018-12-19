@@ -1,0 +1,23 @@
+podTemplate(
+    label: "mypod", 
+    containers: [
+        containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true)
+    ],
+volumes: [
+  hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
+]) {
+  node("mypod") {
+    def myRepo = checkout scm
+    def gitCommit = myRepo.GIT_COMMIT
+    def gitBranch = myRepo.GIT_BRANCH
+ 
+    stage('Create Docker images') {
+      container('docker') {
+          sh """
+            docker build -t namespace/my-image:latest .
+            """
+        }
+      }
+    }
+  }
+}
