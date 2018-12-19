@@ -4,7 +4,7 @@ podTemplate(
     containers: [
         containerTemplate(
             name: 'ubuntu', 
-            image: 'latest',
+            image: 'ubuntu:latest',
             ttyEnabled: true,
             command: 'cat'
         )
